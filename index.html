@@ -66,7 +66,6 @@
 
         <div class="hero-meta reveal" data-d="3">
           <span class="updated-pill"><span class="live-dot" aria-hidden="true"></span>Updated <span class="mono" id="updated"></span></span>
-          <span class="mono" id="lead-note"></span>
         </div>
 
         <div id="next-strip" class="reveal" data-d="4" aria-label="Next games"></div>
@@ -106,8 +105,8 @@
         </div>
 
         <div class="sched-controls reveal">
-          <label for="team-filter">Filter</label>
-          <select id="team-filter" aria-label="Filter schedule by team"></select>
+          <span class="sched-label mono">Jump to a team</span>
+          <div class="team-chips" id="team-chips" role="group" aria-label="Filter the schedule by team"></div>
         </div>
 
         <ul class="sched-list reveal" id="schedule-list"></ul>

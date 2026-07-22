@@ -130,7 +130,7 @@
         <span class="next-round mono">Round Robin ${wk.round === "RR2" ? "2" : "1"}</span>
       </div>
       <ul class="next-games">${games}</ul>
-      <p class="next-foot mono">Away team brings the screens · home team brings the ball</p>`;
+      <p class="next-foot mono">Away team brings the screens · home team brings the ball and bases</p>`;
   }
 
   /* ---- Schedule + results ------------------------------------------------- */
@@ -272,12 +272,18 @@
     }));
   }
 
-  function wireFilter() {
-    const sel = $("#team-filter");
-    sel.innerHTML = `<option value="all">All teams</option>` +
-      LEAGUE.teams.slice().sort((a, b) => a.name.localeCompare(b.name))
-        .map((t) => `<option value="${esc(t.name)}">${esc(t.name)}</option>`).join("");
-    sel.addEventListener("change", () => renderSchedule(sel.value));
+  function wireTeamChips() {
+    const box = $("#team-chips");
+    const teams = ["all", ...LEAGUE.teams.slice().sort((a, b) => a.name.localeCompare(b.name)).map((t) => t.name)];
+    box.innerHTML = teams.map((t, i) =>
+      `<button class="chip${i === 0 ? " is-active" : ""}" data-team="${esc(t)}" aria-pressed="${i === 0}">${t === "all" ? "All teams" : esc(t)}</button>`
+    ).join("");
+    box.addEventListener("click", (e) => {
+      const btn = e.target.closest(".chip");
+      if (!btn) return;
+      $$(".chip", box).forEach((c) => { const on = c === btn; c.classList.toggle("is-active", on); c.setAttribute("aria-pressed", on); });
+      renderSchedule(btn.dataset.team);
+    });
   }
 
   function wireReveal() {
@@ -318,7 +324,6 @@
     $("#hero-season").textContent  = LEAGUE.season.label;
     $("#hero-cadence").textContent = LEAGUE.season.cadence;
     $("#hero-place").textContent   = LEAGUE.season.place;
-    if (leader) $("#lead-note").textContent = `${leader.name} lead the season at ${leader.w}–${leader.l}`;
   }
 
   /* ---- Boot --------------------------------------------------------------- */
@@ -332,7 +337,7 @@
     renderInfo();
     setMeta(leader);
     wireStandingsTabs();
-    wireFilter();
+    wireTeamChips();
     wireNav();
     wireReveal();
   });
