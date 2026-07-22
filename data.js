@@ -162,13 +162,63 @@ const LEAGUE = {
   tournament: {
     title: "Year-End Tournament",
     dates: "September 12–13, 2026",
-    location: "Turner Park, diamonds 5–8 — both days",
-    facts: [
-      ["Saturday, Sept 12", "Pool play"],
-      ["Sunday, Sept 13", "Playoff bracket, with a consolation side for semi-final losers"],
-      ["Seeding", "Final combined regular-season standings (RR1 + RR2), head-to-head tiebreaker"],
+    location: "Turner Park · Diamonds 5, 6, 7 & 8",
+    intro: "Two pools of four, three pool games Saturday, then a full playoff bracket Sunday. Seeds below are drawn from the current combined standings and update every week — they lock in once the regular season ends August 31.",
+    pools: [
+      { name: "Pool A", seeds: [1, 3, 5, 7] },
+      { name: "Pool B", seeds: [2, 4, 6, 8] },
     ],
-    placeholder: "Pools and bracket are set once the regular season ends August 31. Check back then for assignments and results.",
+    days: [
+      {
+        day: "Saturday, September 12",
+        sub: "Pool play — three games per team",
+        slots: [
+          { time: "9:00 AM", round: "Pool Play — Round 1", games: [
+            { diamond: "Turner 5", pool: "A", a: 1, b: 7 },
+            { diamond: "Turner 6", pool: "A", a: 3, b: 5 },
+            { diamond: "Turner 7", pool: "B", a: 2, b: 8 },
+            { diamond: "Turner 8", pool: "B", a: 4, b: 6 },
+          ]},
+          { time: "11:00 AM", round: "Pool Play — Round 2", games: [
+            { diamond: "Turner 5", pool: "A", a: 1, b: 5 },
+            { diamond: "Turner 6", pool: "A", a: 3, b: 7 },
+            { diamond: "Turner 7", pool: "B", a: 2, b: 6 },
+            { diamond: "Turner 8", pool: "B", a: 4, b: 8 },
+          ]},
+          { time: "12:30 PM", round: "Lunch & Beer Garden", break: true, note: "Food and beer garden — all teams" },
+          { time: "1:30 PM", round: "Pool Play — Round 3", games: [
+            { diamond: "Turner 5", pool: "A", a: 1, b: 3 },
+            { diamond: "Turner 6", pool: "A", a: 5, b: 7 },
+            { diamond: "Turner 7", pool: "B", a: 2, b: 4 },
+            { diamond: "Turner 8", pool: "B", a: 6, b: 8 },
+          ]},
+        ],
+      },
+      {
+        day: "Sunday, September 13",
+        sub: "Playoffs — quarter-finals through the finals",
+        slots: [
+          { time: "9:00 AM", round: "Quarter-Finals", games: [
+            { diamond: "Turner 5", label: "A1 vs B4" },
+            { diamond: "Turner 6", label: "A2 vs B3" },
+            { diamond: "Turner 7", label: "A3 vs B2" },
+            { diamond: "Turner 8", label: "A4 vs B1" },
+          ]},
+          { time: "11:00 AM", round: "Semi-Finals", games: [
+            { diamond: "Turner 5", label: "W(A1·B4) vs W(A2·B3)", to: "Championship" },
+            { diamond: "Turner 6", label: "W(A3·B2) vs W(A4·B1)", to: "Championship" },
+            { diamond: "Turner 7", label: "L(A1·B4) vs L(A2·B3)", to: "Consolation" },
+            { diamond: "Turner 8", label: "L(A3·B2) vs L(A4·B1)", to: "Consolation" },
+          ]},
+          { time: "1:00 PM", round: "Finals", games: [
+            { diamond: "Turner 5 / 6", label: "Championship", crown: true },
+            { diamond: "Turner 7 / 8", label: "Consolation Final" },
+          ]},
+        ],
+      },
+    ],
+    minGames: "Every team plays at least five games — three pool games plus the quarter-final and a semi-final or final.",
+    seedNote: "Seeds are provisional, based on the current combined standings. Final seeding is locked after the regular season ends August 31.",
   },
 
   info: {

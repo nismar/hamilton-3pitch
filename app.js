@@ -216,15 +216,60 @@
   /* ---- Year-End Tournament ------------------------------------------------ */
   function renderTournament() {
     const t = LEAGUE.tournament;
-    const facts = t.facts.map((f) => `<div class="fact"><dt class="mono">${esc(f[0])}</dt><dd>${esc(f[1])}</dd></div>`).join("");
+    // Provisional seeds from the current combined standings (seed 1 = leader)
+    const order = computeStandings(["RR1", "RR2"]);
+    const seedTeam = {};
+    order.forEach((row, i) => { seedTeam[i + 1] = row.name; });
+    const teamOf = (s) => seedTeam[s] || ("Seed " + s);
+
+    const pools = t.pools.map((p) => {
+      const items = p.seeds.map((s) =>
+        `<li><span class="seed mono">${s}</span><span class="seed-team">${esc(teamOf(s))}</span></li>`).join("");
+      return `<div class="pool"><h4 class="pool-h mono">${esc(p.name)}</h4><ul class="pool-list">${items}</ul></div>`;
+    }).join("");
+
+    const days = t.days.map((d) => {
+      const slots = d.slots.map((s) => {
+        if (s.break) {
+          return `<div class="t-slot t-slot--break"><span class="t-time mono">${esc(s.time)}</span>
+            <span class="t-break">${esc(s.round)}${s.note ? ` <span class="t-break-note">· ${esc(s.note)}</span>` : ""}</span></div>`;
+        }
+        const games = s.games.map((g) => {
+          let match, sub = "";
+          if (g.a) {
+            match = `${esc(teamOf(g.a))} <i>vs</i> ${esc(teamOf(g.b))}`;
+            sub = `${g.pool ? g.pool + " · " : ""}#${g.a} v #${g.b}`;
+          } else {
+            match = esc(g.label);
+            if (g.to) sub = `→ ${esc(g.to)}`;
+          }
+          return `<div class="t-game${g.crown ? " t-game--crown" : ""}">
+            <span class="t-dia mono">${esc(g.diamond)}</span>
+            <span class="t-match">${match}</span>
+            ${sub ? `<span class="t-sub mono">${sub}</span>` : ""}
+          </div>`;
+        }).join("");
+        return `<div class="t-slot">
+          <div class="t-slot-head"><span class="t-time mono">${esc(s.time)}</span><span class="t-round">${esc(s.round)}</span></div>
+          <div class="t-games">${games}</div>
+        </div>`;
+      }).join("");
+      return `<div class="t-day">
+        <div class="t-day-head"><h3>${esc(d.day)}</h3><span class="t-day-sub mono">${esc(d.sub)}</span></div>
+        ${slots}
+      </div>`;
+    }).join("");
+
     $("#tournament-panel").innerHTML = `
       <div class="tour-top">
         <div class="tour-when"><span class="tour-dates">${esc(t.dates)}</span><span class="tour-loc mono">${esc(t.location)}</span></div>
       </div>
-      <dl class="facts">${facts}</dl>
-      <div class="bracket-ph">
-        <span class="ph-diamond" aria-hidden="true"></span>
-        <p>${esc(t.placeholder)}</p>
+      <p class="lede">${esc(t.intro)}</p>
+      <div class="pools">${pools}</div>
+      <div class="t-days">${days}</div>
+      <div class="t-notes">
+        <p class="story"><span class="story-mk" aria-hidden="true"></span>${esc(t.minGames)}</p>
+        <p class="fine mono">${esc(t.seedNote)}</p>
       </div>`;
   }
 
