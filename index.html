@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>City of Hamilton Co-ed 3 Pitch</title>
+  <meta name="description" content="Standings, schedule, and the Year-End Tournament for the City of Hamilton Co-ed 3 Pitch baseball league. Updated weekly." />
+  <meta name="color-scheme" content="light dark" />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <meta property="og:title" content="City of Hamilton Co-ed 3 Pitch" />
+  <meta property="og:description" content="Standings, schedule, and the Year-End Tournament. Updated weekly." />
+  <meta property="og:type" content="website" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <a href="#standings" class="vh">Skip to standings</a>
+
+  <header class="site-head">
+    <div class="wrap head-row">
+      <a class="brand" href="#top" aria-label="City of Hamilton Co-ed 3 Pitch — home">
+        <span class="dia" aria-hidden="true"></span>
+        <span class="brand-mark">Co-ed 3 Pitch</span>
+        <span class="brand-sub">Hamilton</span>
+      </a>
+
+      <button class="nav-toggle" id="nav-toggle" aria-controls="nav" aria-expanded="false">Menu</button>
+      <nav id="nav" aria-label="Sections">
+        <ul>
+          <li><a href="#standings">Standings</a></li>
+          <li><a href="#schedule">Schedule</a></li>
+          <li><a href="#classic">Classic</a></li>
+          <li><a href="#tournament">Tournament</a></li>
+          <li><a href="#info">Info</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <!-- Hero -->
+    <section class="hero" aria-label="Introduction">
+      <div class="wrap">
+        <p class="hero-ey reveal" data-d="1">
+          <span class="eyebrow">2026 Season</span>
+        </p>
+        <div class="hero-ey reveal" data-d="1">
+          <span class="mono" id="hero-season"></span>
+          <span class="dot" aria-hidden="true"></span>
+          <span class="mono" id="hero-cadence"></span>
+          <span class="dot" aria-hidden="true"></span>
+          <span class="mono" id="hero-place"></span>
+        </div>
+
+        <h1 class="reveal" data-d="2">
+          <span class="l1">City of Hamilton</span>
+          <span class="l2">Co-ed 3 Pitch</span>
+        </h1>
+
+        <p class="hero-lede reveal" data-d="3">
+          Eight teams, two round robins, Monday nights all summer. Find your next game, follow the standings, and get ready for the Year-End Tournament.
+        </p>
+
+        <div class="hero-meta reveal" data-d="3">
+          <span class="updated-pill"><span class="live-dot" aria-hidden="true"></span>Updated <span class="mono" id="updated"></span></span>
+          <span class="mono" id="lead-note"></span>
+        </div>
+
+        <div id="next-strip" class="reveal" data-d="4" aria-label="Next games"></div>
+      </div>
+    </section>
+
+    <!-- Roster marquee -->
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee-track" id="marquee-track"></div>
+    </div>
+
+    <!-- Standings -->
+    <section id="standings" aria-labelledby="standings-title">
+      <div class="wrap">
+        <div class="sec-head reveal">
+          <div class="sec-title"><span class="dia" aria-hidden="true"></span><h2 id="standings-title">Standings</h2></div>
+          <p class="sec-kicker">Wins &amp; losses only · head-to-head breaks ties</p>
+        </div>
+
+        <div class="reveal">
+          <div class="seg" role="group" aria-label="Standings view">
+            <button class="seg-btn is-active" data-view="combined" aria-pressed="true">Combined</button>
+            <button class="seg-btn" data-view="rr1" aria-pressed="false">Round Robin 1</button>
+            <button class="seg-btn" data-view="rr2" aria-pressed="false">Round Robin 2</button>
+          </div>
+          <div id="standings-panel"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Schedule -->
+    <section id="schedule" aria-labelledby="schedule-title">
+      <div class="wrap">
+        <div class="sec-head reveal">
+          <div class="sec-title"><span class="dia" aria-hidden="true"></span><h2 id="schedule-title">Schedule &amp; Results</h2></div>
+          <p class="sec-kicker">May 11 → Aug 31 · four games every Monday</p>
+        </div>
+
+        <div class="sched-controls reveal">
+          <label for="team-filter">Filter</label>
+          <select id="team-filter" aria-label="Filter schedule by team"></select>
+        </div>
+
+        <ul class="sched-list reveal" id="schedule-list"></ul>
+      </div>
+    </section>
+
+    <!-- Mid-Summer Classic -->
+    <section id="classic" aria-labelledby="classic-title">
+      <div class="wrap">
+        <div class="sec-head reveal">
+          <div class="sec-title"><span class="dia" aria-hidden="true"></span><h2 id="classic-title">Mid-Summer Classic</h2></div>
+          <p class="sec-kicker">July 6 · complete · does not count toward standings</p>
+        </div>
+        <div class="reveal" id="classic-panel"></div>
+      </div>
+    </section>
+
+    <!-- Year-End Tournament -->
+    <section id="tournament" aria-labelledby="tournament-title">
+      <div class="wrap">
+        <div class="sec-head reveal">
+          <div class="sec-title"><span class="dia" aria-hidden="true"></span><h2 id="tournament-title">Year-End Tournament</h2></div>
+          <p class="sec-kicker">September 12–13 · seeded by final standings</p>
+        </div>
+        <div class="reveal" id="tournament-panel"></div>
+      </div>
+    </section>
+
+    <!-- League info -->
+    <section id="info" aria-labelledby="info-title">
+      <div class="wrap">
+        <div class="sec-head reveal">
+          <div class="sec-title"><span class="dia" aria-hidden="true"></span><h2 id="info-title">League Info</h2></div>
+          <p class="sec-kicker">Times, duties, directions &amp; teams</p>
+        </div>
+        <div class="reveal" id="info-panel"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-foot">
+    <div class="wrap">
+      <div class="foot-row">
+        <p class="foot-brand">City of Hamilton Co-ed 3 Pitch</p>
+        <p class="foot-contact">Questions about a result or schedule? Contact your team captain or the league convenor.</p>
+        <div class="foot-meta">
+          <span>Last updated <span class="mono" data-updated></span></span>
+          <span class="mono">Hamilton, Ontario</span>
+        </div>
+      </div>
+      <p class="foot-rule">Wins and losses only — scores are not tracked. Playoff and tournament games do not affect regular-season standings.</p>
+    </div>
+  </footer>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

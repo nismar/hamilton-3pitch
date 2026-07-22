@@ -1,0 +1,10 @@
+# OS / editor cruft
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+node_modules/
+
+# Deploy artifacts
+*.zip
+.netlify/
