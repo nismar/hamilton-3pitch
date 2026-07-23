@@ -189,6 +189,10 @@
   /* ---- Mid-Summer Classic ------------------------------------------------- */
   function renderClassic() {
     const c = LEAGUE.classic;
+    // Resolve {record:Team Name} tokens against the live combined standings
+    const rec = {};
+    computeStandings(["RR1", "RR2"]).forEach((r) => { rec[r.name] = `${r.w}–${r.l}`; });
+    const fill = (s) => String(s).replace(/\{record:([^}]+)\}/g, (m, n) => rec[n.trim()] || m);
     const divs = c.divisions.map((d) => {
       const games = d.games.map((g) => `
         <li class="cl-game${g.crown ? " cl-game--final" : ""}">
@@ -209,7 +213,7 @@
       <p class="fine mono">${esc(c.seedNote)}</p>
       <div class="cl-grid">${divs}</div>
       <div class="stories">
-        ${c.storylines.map((s) => `<p class="story"><span class="story-mk" aria-hidden="true"></span>${esc(s)}</p>`).join("")}
+        ${c.storylines.map((s) => `<p class="story"><span class="story-mk" aria-hidden="true"></span>${esc(fill(s))}</p>`).join("")}
       </div>`;
   }
 

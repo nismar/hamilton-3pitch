@@ -153,9 +153,11 @@ const LEAGUE = {
         { label: "Consolation", winner: "Protectors", loser: "Bussin Balls" },
       ]},
     ],
+    /* {record:Team Name} is replaced at render time with that team's live
+       combined W–L record, so this copy never goes stale. */
     storylines: [
       "Odds & Ends' only loss of the entire year — in any competition — came here, in the Division A final.",
-      "Culture and Recked lifted the Division B banner despite a 3–5 league record.",
+      "Culture and Recked lifted the Division B banner despite a {record:Culture and Recked} league record.",
     ],
   },
 
