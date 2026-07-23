@@ -154,7 +154,7 @@ const LEAGUE = {
       ]},
     ],
     storylines: [
-      "Odds & Ends' only two losses of the entire year — in any competition — both came here at the Classic.",
+      "Odds & Ends' only loss of the entire year — in any competition — came here, in the Division A final.",
       "Culture and Recked lifted the Division B banner despite a 3–5 league record.",
     ],
   },
