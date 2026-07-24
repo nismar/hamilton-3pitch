@@ -21,7 +21,7 @@ const LEAGUE = {
     place: "Hamilton, Ontario",
     year: 2026,
   },
-  updated: "July 20, 2026",
+  updated: "July 24, 2026",
 
   teams: [
     { id: 1, name: "Coyotes",            captain: "Ritta Nazi" },
@@ -167,8 +167,8 @@ const LEAGUE = {
     location: "Turner Park · Diamonds 5, 6, 7 & 8",
     intro: "Two pools of four, three pool games Saturday, then a full playoff bracket Sunday. Seeds below are drawn from the current combined standings and update every week — they lock in once the regular season ends August 31.",
     pools: [
-      { name: "Pool A", seeds: [1, 3, 5, 7] },
-      { name: "Pool B", seeds: [2, 4, 6, 8] },
+      { name: "Pool A", seeds: [1, 4, 5, 8] },
+      { name: "Pool B", seeds: [2, 3, 6, 7] },
     ],
     days: [
       {
@@ -176,23 +176,23 @@ const LEAGUE = {
         sub: "Pool play — three games per team",
         slots: [
           { time: "9:00 AM", round: "Pool Play — Round 1", games: [
-            { diamond: "Turner 5", pool: "A", a: 1, b: 7 },
-            { diamond: "Turner 6", pool: "A", a: 3, b: 5 },
-            { diamond: "Turner 7", pool: "B", a: 2, b: 8 },
-            { diamond: "Turner 8", pool: "B", a: 4, b: 6 },
+            { diamond: "Turner 5", pool: "A", a: 1, b: 8 },
+            { diamond: "Turner 6", pool: "A", a: 4, b: 5 },
+            { diamond: "Turner 7", pool: "B", a: 2, b: 7 },
+            { diamond: "Turner 8", pool: "B", a: 3, b: 6 },
           ]},
           { time: "11:00 AM", round: "Pool Play — Round 2", games: [
             { diamond: "Turner 5", pool: "A", a: 1, b: 5 },
-            { diamond: "Turner 6", pool: "A", a: 3, b: 7 },
+            { diamond: "Turner 6", pool: "A", a: 4, b: 8 },
             { diamond: "Turner 7", pool: "B", a: 2, b: 6 },
-            { diamond: "Turner 8", pool: "B", a: 4, b: 8 },
+            { diamond: "Turner 8", pool: "B", a: 3, b: 7 },
           ]},
           { time: "12:30 PM", round: "Lunch & Beer Garden", break: true, note: "Food and beer garden — all teams" },
           { time: "1:30 PM", round: "Pool Play — Round 3", games: [
-            { diamond: "Turner 5", pool: "A", a: 1, b: 3 },
-            { diamond: "Turner 6", pool: "A", a: 5, b: 7 },
-            { diamond: "Turner 7", pool: "B", a: 2, b: 4 },
-            { diamond: "Turner 8", pool: "B", a: 6, b: 8 },
+            { diamond: "Turner 5", pool: "A", a: 1, b: 4 },
+            { diamond: "Turner 6", pool: "A", a: 5, b: 8 },
+            { diamond: "Turner 7", pool: "B", a: 2, b: 3 },
+            { diamond: "Turner 8", pool: "B", a: 6, b: 7 },
           ]},
         ],
       },
@@ -207,10 +207,10 @@ const LEAGUE = {
             { diamond: "Turner 8", label: "A4 vs B1" },
           ]},
           { time: "11:00 AM", round: "Semi-Finals", games: [
-            { diamond: "Turner 5", label: "W(A1·B4) vs W(A2·B3)", to: "Championship" },
-            { diamond: "Turner 6", label: "W(A3·B2) vs W(A4·B1)", to: "Championship" },
-            { diamond: "Turner 7", label: "L(A1·B4) vs L(A2·B3)", to: "Consolation" },
-            { diamond: "Turner 8", label: "L(A3·B2) vs L(A4·B1)", to: "Consolation" },
+            { diamond: "Turner 5", label: "W(A1·B4) vs W(A3·B2)", to: "Championship" },
+            { diamond: "Turner 6", label: "W(A2·B3) vs W(A4·B1)", to: "Championship" },
+            { diamond: "Turner 7", label: "L(A1·B4) vs L(A3·B2)", to: "Consolation" },
+            { diamond: "Turner 8", label: "L(A2·B3) vs L(A4·B1)", to: "Consolation" },
           ]},
           { time: "1:00 PM", round: "Finals", games: [
             { diamond: "Turner 5 / 6", label: "Championship", crown: true },
