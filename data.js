@@ -21,7 +21,7 @@ const LEAGUE = {
     place: "Hamilton, Ontario",
     year: 2026,
   },
-  updated: "July 24, 2026",
+  updated: "August 4, 2026",
 
   teams: [
     { id: 1, name: "Coyotes",            captain: "Ritta Nazi" },
@@ -87,11 +87,11 @@ const LEAGUE = {
       { winner: "Odds & Ends",        loser: "Stealers",    diamond: "Turner 2" },
       { winner: "Wildcats",           loser: "Bussin Balls",diamond: "Turner 3" },
     ]},
-    { date: "July 27", round: "RR2", status: "upcoming", games: [
-      { away: "Culture and Recked", home: "Odds & Ends",     diamond: "Kay Drage 1" },
-      { away: "Wildcats",           home: "Our Gang Homers", diamond: "Kay Drage 2" },
-      { away: "Protectors",         home: "Bussin Balls",    diamond: "Turner 2" },
-      { away: "Stealers",           home: "Coyotes",         diamond: "Turner 3" },
+    { date: "July 27", round: "RR2", status: "final", games: [
+      { winner: "Odds & Ends",  loser: "Culture and Recked", diamond: "Kay Drage 1" },
+      { winner: "Wildcats",     loser: "Our Gang Homers",    diamond: "Kay Drage 2" },
+      { winner: "Bussin Balls", loser: "Protectors",         diamond: "Turner 2" },
+      { winner: "Stealers",     loser: "Coyotes",            diamond: "Turner 3" },
     ]},
     { date: "August 3", type: "holiday", label: "Civic Holiday — diamonds closed" },
     { date: "August 10", round: "RR2", status: "upcoming", games: [
@@ -236,6 +236,32 @@ const LEAGUE = {
       "Playoff and tournament games don't count toward regular-season standings.",
       "The May 25 rainout was cancelled outright — those games are excluded, not rescheduled.",
       "Forfeits count as an ordinary win or loss.",
+    ],
+  },
+
+  /* ---------------------------------------------------------------------------
+     CHANGE LOG — the public record of edits. NEWEST ENTRY FIRST.
+     ►► ADD AN ENTRY EVERY TIME YOU CHANGE THE SITE (results, schedule, format).
+        Each entry: date, a short tag, a title, and a plain-language changes[].
+        No push without a matching entry — that's what keeps the log honest.
+     ------------------------------------------------------------------------ */
+  changelog: {
+    note: "Every update to standings, schedule, or tournament format is logged here, newest first — so the season stays transparent and anyone can see exactly what changed and when.",
+    historyUrl: "https://github.com/nismar/hamilton-3pitch/commits/main",
+    entries: [
+      { date: "August 4, 2026", tag: "Results", title: "July 27 results are in", changes: [
+        "All four July 27 games are final: Odds & Ends beat Culture and Recked, Wildcats beat Our Gang Homers, Bussin Balls beat Protectors, and Stealers beat Coyotes.",
+        "Standings and tournament seeding refresh automatically from these results.",
+        "This Updates section makes its debut — every change to the site is logged here from now on, newest first.",
+      ]},
+      { date: "July 24, 2026", tag: "Tournament", title: "Year-End Tournament reseeded", changes: [
+        "Pools rebalanced — Pool A is now seeds 1, 4, 5 & 8; Pool B is seeds 2, 3, 6 & 7 (previously odd seeds vs. even seeds).",
+        "Saturday pool-play games redrawn to match the new pools.",
+        "Sunday semifinals re-paired so the top team in each pool can't run into each other again before the final.",
+      ]},
+      { date: "July 22, 2026", tag: "Launch", title: "League website went live", changes: [
+        "First version published — standings, the full schedule, the Mid-Summer Classic recap, and the Year-End Tournament bracket.",
+      ]},
     ],
   },
 };

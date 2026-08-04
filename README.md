@@ -15,6 +15,7 @@ Edit **`data.js`** only:
 2. Change its `status: "upcoming"` to `status: "final"`.
 3. For each game, replace `{ away, home }` with `{ winner, loser }` (winner first); keep the `diamond`.
 4. Bump the top-level `updated:` date.
+5. Add a change-log entry at the top of `changelog.entries` (newest first) describing what changed — every update to the site gets one, so the public "Updates" section stays honest.
 
 Standings recompute automatically — wins/losses only, head-to-head tiebreakers, rainout and playoff games excluded. Never add captain emails or phone numbers.
 

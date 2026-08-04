@@ -306,6 +306,32 @@
       </div>`;
   }
 
+  /* ---- Updates / change log ----------------------------------------------- */
+  function renderUpdates() {
+    const cl = LEAGUE.changelog;
+    if (!cl || !Array.isArray(cl.entries) || !cl.entries.length) return;
+
+    const items = cl.entries.map((e) => {
+      const changes = (e.changes || []).map((c) => `<li>${esc(c)}</li>`).join("");
+      return `<li class="log-item">
+        <div class="log-head">
+          <span class="log-date mono">${esc(e.date)}</span>
+          ${e.tag ? `<span class="tag">${esc(e.tag)}</span>` : ""}
+        </div>
+        <h3 class="log-title">${esc(e.title)}</h3>
+        <ul class="log-changes">${changes}</ul>
+      </li>`;
+    }).join("");
+
+    const note = cl.note ? `<p class="fine">${esc(cl.note)}</p>` : "";
+    const link = cl.historyUrl
+      ? `<a class="log-link mono" href="${esc(cl.historyUrl)}" target="_blank" rel="noopener">Full change history on GitHub &rarr;</a>`
+      : "";
+
+    $("#updates-panel").innerHTML = `<ul class="log">${items}</ul>
+      <div class="log-foot">${note}${link}</div>`;
+  }
+
   /* ---- Team filter marquee band (roster) ---------------------------------- */
   function renderMarquee() {
     const names = LEAGUE.teams.map((t) => `<span class="mq-item">${esc(t.name)}</span><span class="mq-dot" aria-hidden="true"></span>`).join("");
@@ -384,6 +410,7 @@
     renderClassic();
     renderTournament();
     renderInfo();
+    renderUpdates();
     setMeta(leader);
     wireStandingsTabs();
     wireTeamChips();

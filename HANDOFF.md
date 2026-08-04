@@ -21,12 +21,15 @@ Edit **`data.js`** only:
 2. Change its `status: "upcoming"` → `status: "final"`.
 3. For each game, replace `{ away, home }` with `{ winner, loser }` (winner first); keep the `diamond`.
 4. Bump the top-level `updated:` date.
-5. Deploy:
+5. **Add a change-log entry** at the *top* of `changelog.entries` (newest first): a `date`, a short `tag`, a `title`, and a plain-language `changes:` list. **Every change to the site gets one** — results, schedule fixes, format changes. It's the public record, so it's what keeps the process honest.
+6. Deploy:
    ```bash
    git commit -am "Results for <date>"
    git push
    ```
    Netlify redeploys in ~20 seconds.
+
+> **Rule of thumb:** no push without a matching change-log entry. If the site changed, the "Updates" section must say so. The entry is the plain-English version of the commit; the commit history (linked from the Updates section) is the full technical record.
 
 ## What updates itself (do NOT hand-edit these)
 - **Standings** are computed from game results — wins/losses only, head-to-head tiebreakers, with the May 25 rainout and all Classic/Tournament games excluded.

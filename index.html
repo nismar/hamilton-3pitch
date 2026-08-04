@@ -35,6 +35,7 @@
           <li><a href="#classic">Classic</a></li>
           <li><a href="#tournament">Tournament</a></li>
           <li><a href="#info">Info</a></li>
+          <li><a href="#updates">Updates</a></li>
         </ul>
       </nav>
     </div>
@@ -65,7 +66,11 @@
         </p>
 
         <div class="hero-meta reveal" data-d="3">
-          <span class="updated-pill"><span class="live-dot" aria-hidden="true"></span>Updated <span class="mono" id="updated"></span></span>
+          <a class="updated-pill" href="#updates">
+            <span class="live-dot" aria-hidden="true"></span>
+            <span>Updated <span class="mono" id="updated"></span></span>
+            <span class="updated-cta">See what changed &rarr;</span>
+          </a>
         </div>
 
         <div id="next-strip" class="reveal" data-d="4" aria-label="Next games"></div>
@@ -143,6 +148,17 @@
           <p class="sec-kicker">Times, duties, directions &amp; teams</p>
         </div>
         <div class="reveal" id="info-panel"></div>
+      </div>
+    </section>
+
+    <!-- Updates / change log -->
+    <section id="updates" aria-labelledby="updates-title">
+      <div class="wrap">
+        <div class="sec-head reveal">
+          <div class="sec-title"><span class="dia" aria-hidden="true"></span><h2 id="updates-title">Updates</h2></div>
+          <p class="sec-kicker">Tracked changes · newest first</p>
+        </div>
+        <div class="reveal" id="updates-panel"></div>
       </div>
     </section>
   </main>
