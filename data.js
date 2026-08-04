@@ -249,6 +249,10 @@ const LEAGUE = {
     note: "Every update to standings, schedule, or tournament format is logged here, newest first — so the season stays transparent and anyone can see exactly what changed and when.",
     historyUrl: "https://github.com/nismar/hamilton-3pitch/commits/main",
     entries: [
+      { date: "August 4, 2026", tag: "Site", title: "Results now post game-by-game", changes: [
+        "Games go final individually as results come in — a week can show '3 of 4 final' instead of waiting for every score.",
+        "Standings count each result the moment it's entered, so the table stays current all week.",
+      ]},
       { date: "August 4, 2026", tag: "Results", title: "July 27 results are in", changes: [
         "All four July 27 games are final: Odds & Ends beat Culture and Recked, Wildcats beat Our Gang Homers, Bussin Balls beat Protectors, and Stealers beat Coyotes.",
         "Standings and tournament seeding refresh automatically from these results.",

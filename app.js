@@ -1,7 +1,8 @@
 /* =============================================================================
    City of Hamilton Co-ed 3 Pitch — rendering + standings computation
    Standings are COMPUTED from game results (never hand-entered):
-     • only status:"final" games in the selected round(s)
+     • every game with a recorded winner in the selected round(s) — weeks can be
+       partially final, so results count the moment they're entered
      • rainout / holiday weeks and Classic + Tournament are excluded
      • sort by win pct, then head-to-head; unresolved ties share a rank (T)
    ========================================================================== */
@@ -20,8 +21,9 @@
     LEAGUE.teams.forEach((t) => { rec[t.name] = { name: t.name, id: t.id, w: 0, l: 0 }; h2h[t.name] = {}; });
 
     LEAGUE.weeks.forEach((wk) => {
-      if (wk.status !== "final" || !rounds.includes(wk.round)) return;
-      wk.games.forEach((g) => {
+      if (!rounds.includes(wk.round)) return;
+      (wk.games || []).forEach((g) => {
+        if (!g.winner) return; // per-game finality: unplayed games in a partial week don't count yet
         rec[g.winner].w += 1;
         rec[g.loser].l  += 1;
         h2h[g.winner][g.loser] = (h2h[g.winner][g.loser] || 0) + 1;
@@ -161,7 +163,7 @@
       const games = wk.games
         .filter((g) => filter === "all" || gameTeams(g).includes(filter))
         .map((g) => {
-          if (isFinal) {
+          if (g.winner) {
             return `<li class="g g--final">
               <span class="g-teams"><b class="g-win">${esc(g.winner)}</b><span class="g-verb mono">def.</span>${esc(g.loser)}${g.forfeit ? ` <span class="tag tag--sm">forfeit</span>` : ""}</span>
               <span class="g-dia mono">${esc(g.diamond)}</span>
@@ -175,7 +177,11 @@
             </li>`;
         }).join("");
 
-      const tag = isFinal ? `<span class="tag">Final</span>` : isNext ? `<span class="tag tag--next">Next up</span>` : `<span class="tag tag--soft">Upcoming</span>`;
+      const played = wk.games.filter((g) => g.winner).length;
+      const tag = isFinal ? `<span class="tag">Final</span>`
+        : played ? `<span class="tag">${played} of ${wk.games.length} final</span>`
+        : isNext ? `<span class="tag tag--next">Next up</span>`
+        : `<span class="tag tag--soft">Upcoming</span>`;
       return `<li class="wk${isNext ? " wk--hi" : ""}">
         <div class="wk-head"><span class="wk-date mono">${esc(wk.date)}</span>${tag}<span class="wk-round mono">${wk.round === "RR2" ? "RR2" : "RR1"}</span></div>
         <ul class="games">${games}</ul>

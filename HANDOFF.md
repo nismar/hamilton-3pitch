@@ -16,10 +16,13 @@ A running snapshot so anyone (or a fresh Claude session) can pick this up on any
 | `favicon.svg`, `netlify.toml` | Deploy assets |
 
 ## Weekly update (the main recurring task)
+
+**Preferred route (since Aug 4, 2026): the `/scores` skill in the ais-os project.** Tell it the winners in plain English — it matches them to the week's schedule, drafts the exact change for approval, then handles changelog, checks, and deploy. The manual route below still works and is what the skill follows.
+
 Edit **`data.js`** only:
 1. Find the week in `weeks[]` you're updating.
-2. Change its `status: "upcoming"` → `status: "final"`.
-3. For each game, replace `{ away, home }` with `{ winner, loser }` (winner first); keep the `diamond`.
+2. For each game with a known result, replace `{ away, home }` with `{ winner, loser }` (winner first); keep the `diamond`. **Partial weeks are fine** — games go final individually; the site shows "N of 4 final" and standings count entered results immediately.
+3. Only when ALL games in the week have winners, flip its `status: "upcoming"` → `status: "final"`.
 4. Bump the top-level `updated:` date.
 5. **Add a change-log entry** at the *top* of `changelog.entries` (newest first): a `date`, a short `tag`, a `title`, and a plain-language `changes:` list. **Every change to the site gets one** — results, schedule fixes, format changes. It's the public record, so it's what keeps the process honest.
 6. Deploy:
