@@ -21,7 +21,7 @@ const LEAGUE = {
     place: "Hamilton, Ontario",
     year: 2026,
   },
-  updated: "August 18, 2026",
+  updated: "August 26, 2026",
 
   teams: [
     { id: 1, name: "Coyotes",            captain: "Ritta Nazi" },
@@ -106,11 +106,11 @@ const LEAGUE = {
       { winner: "Culture and Recked", loser: "Coyotes",         diamond: "Turner 2", tiebreak: "Head-to-head rematch — affects the 5 / 6 tiebreak" },
       { winner: "Odds & Ends",        loser: "Our Gang Homers", diamond: "Turner 3" },
     ]},
-    { date: "August 24", round: "RR2", status: "upcoming", games: [
-      { away: "Bussin Balls",    home: "Culture and Recked", diamond: "Kay Drage 1" },
-      { away: "Odds & Ends",     home: "Wildcats",           diamond: "Kay Drage 2" },
-      { away: "Our Gang Homers", home: "Stealers",           diamond: "Turner 2", tiebreak: "Head-to-head rematch — affects the 3 / 4 tiebreak" },
-      { away: "Protectors",      home: "Coyotes",            diamond: "Turner 3" },
+    { date: "August 24", round: "RR2", status: "final", games: [
+      { winner: "Bussin Balls",     loser: "Culture and Recked", diamond: "Kay Drage 1", forfeit: true },
+      { winner: "Odds & Ends",      loser: "Wildcats",           diamond: "Kay Drage 2" },
+      { winner: "Our Gang Homers",  loser: "Stealers",           diamond: "Turner 2", tiebreak: "Head-to-head rematch — affects the 3 / 4 tiebreak" },
+      { winner: "Protectors",       loser: "Coyotes",            diamond: "Turner 3" },
     ]},
     { date: "August 31", round: "RR2", status: "upcoming", note: "Final week of the regular season", games: [
       { away: "Odds & Ends",     home: "Protectors",         diamond: "Kay Drage 1" },
@@ -123,7 +123,7 @@ const LEAGUE = {
   /* Editorial tiebreaker notes shown beneath each standings view */
   tiebreakNotes: {
     combined: [
-      "Stealers (7–4) lead Our Gang Homers (6–5) by a game; the August 24 head-to-head rematch could still pull them level.",
+      "Stealers and Our Gang Homers are level at 7–5; they split the season series 1–1, so the 3 / 4 seed comes down to the final week (and the next tiebreak if still tied).",
     ],
     rr1: [
       "Stealers rank above Wildcats (both 4–2) on head-to-head — Stealers won June 29.",
@@ -248,6 +248,11 @@ const LEAGUE = {
     note: "Every update to standings, schedule, or tournament format is logged here, newest first — so the season stays transparent and anyone can see exactly what changed and when.",
     historyUrl: "https://github.com/nismar/hamilton-3pitch/commits/main",
     entries: [
+      { date: "August 26, 2026", tag: "Results", title: "August 24 results are in", changes: [
+        "All four August 24 games are final: Odds & Ends beat Wildcats, Our Gang Homers beat Stealers, Bussin Balls beat Culture and Recked (forfeit), and Protectors beat Coyotes.",
+        "Odds & Ends stay perfect at 12–0 and clinch the top seed. Our Gang Homers and Stealers are now level at 7–5, with Homers holding the RR2 head-to-head, heading into the final week.",
+        "Standings and tournament seeding refresh automatically from these results.",
+      ]},
       { date: "August 18, 2026", tag: "Results", title: "August 17 results are in", changes: [
         "All four August 17 games are final: Wildcats beat Protectors, Stealers beat Bussin Balls, Culture and Recked beat Coyotes, and Odds & Ends beat Our Gang Homers.",
         "Odds & Ends stay perfect at 11–0. Stealers move a game clear of Our Gang Homers ahead of their August 24 rematch.",
