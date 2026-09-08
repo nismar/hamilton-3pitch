@@ -35,7 +35,7 @@ Edit **`data.js`** only:
 > **Rule of thumb:** no push without a matching change-log entry. If the site changed, the "Updates" section must say so. The entry is the plain-English version of the commit; the commit history (linked from the Updates section) is the full technical record.
 
 ## What updates itself (do NOT hand-edit these)
-- **Standings** are computed from game results — wins/losses only, head-to-head tiebreakers, with the May 25 rainout and all Classic/Tournament games excluded.
+- **Standings** are computed from game results — wins/losses only, head-to-head tiebreakers, with the May 25 and August 31 rainouts and all Classic/Tournament games excluded.
 - **Tournament pools and Saturday matchups** auto-seed from the live combined standings (seed 1 = current leader). The Sunday bracket stays as `A1 vs B4`-style placeholders until Saturday's pool results exist.
 - **Storyline copy** in `data.js` can embed a `{record:Team Name}` token — it resolves at render time to that team's live combined W–L, so written copy never goes stale.
 
@@ -48,6 +48,7 @@ Edit **`data.js`** only:
 The data is embedded, so you can just open `index.html` in a browser. For a server, any static server works (Node only needed for that, not for editing/deploying).
 
 ## Open items / watch-outs
+- **Season ended on a rainout (Aug 31, 2026)** — entered as a `type: "rainout"` week like May 25. Two seeds are tied with the season series split 1–1: Stealers / Our Gang Homers (3 / 4) and Coyotes / Protectors (6 / 7). The site shows them in team-id order (the computed fallback) and labels them provisional. Once the tiebreak is settled: update `tiebreakNotes.combined`, the tournament `intro` / `seedNote`, and if the result differs from the displayed order, fix the seeds explicitly (a `seedOverride` in `data.js` + a matching change in `renderTournament`) rather than by editing team ids. Log it in the changelog.
 - **After Sept 12–13, 2026:** enter the real tournament pool finishes and bracket results (currently the Sunday side is placeholders).
 - The Classic storyline reads "…despite a `{record:Culture and Recked}` league record." The word **"despite"** assumes a *losing* record — revisit that one sentence if Culture and Recked finish above .500.
 - Heads-up for reference: the original planning doc (`league-website-handoff.md`, kept off-repo) had an error — it said Odds & Ends had "two losses" at the Mid-Summer Classic. It's **one** (they lost only the Division A final; 8–0 in the regular season). Already corrected on the site.

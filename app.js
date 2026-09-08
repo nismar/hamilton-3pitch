@@ -87,10 +87,12 @@
       ? `<div class="st-notes"><span class="st-notes__k mono">Tiebreakers</span><ul>${notes.map((n) => `<li>${esc(n)}</li>`).join("")}</ul></div>`
       : "";
 
-    const live = view === "rr2" ? `<span class="tag tag--live">In progress</span>` : "";
+    // RR2 is "live" only while a round-robin week is still waiting on results
+    const rr2Live = LEAGUE.weeks.some((w) => w.round === "RR2" && w.status === "upcoming");
+    const live = view === "rr2" && rr2Live ? `<span class="tag tag--live">In progress</span>` : "";
     const caption = view === "combined"
       ? "Combined season · Round Robin 1 + 2"
-      : view === "rr1" ? "Round Robin 1 · Final" : "Round Robin 2 · Live";
+      : view === "rr1" ? "Round Robin 1 · Final" : (rr2Live ? "Round Robin 2 · Live" : "Round Robin 2 · Final");
 
     $("#standings-panel").innerHTML = `
       <div class="st-caption"><span class="mono">${caption}</span>${live}</div>
@@ -119,7 +121,18 @@
 
   function renderNext() {
     const wk = nextWeek();
-    if (!wk) return;
+    if (!wk) {
+      // Regular season over — point the strip at the Year-End Tournament instead of leaving an empty box
+      const t = LEAGUE.tournament;
+      $("#next-strip").innerHTML = `
+        <div class="next-head">
+          <span class="eyebrow mono">Next up</span>
+          <span class="next-date">${esc(t.title)}</span>
+          <span class="next-round mono">${esc(t.dates)}</span>
+        </div>
+        <p class="next-foot mono">Regular season complete · ${esc(t.location)} · <a href="#tournament">Pools &amp; schedule &rarr;</a></p>`;
+      return;
+    }
     const games = wk.games.map((g) => `
       <li class="next-game">
         <span class="next-match">${esc(g.away)} <span class="vs">at</span> ${esc(g.home)}</span>

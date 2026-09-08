@@ -7,7 +7,7 @@
      keeping the diamond. Standings recompute automatically.
    - Rules baked into the computation (see app.js):
        • Wins & losses only — scores are never tracked.
-       • Rainout (May 25) is excluded from standings entirely.
+       • Rainouts (May 25, Aug 31) are excluded from standings entirely.
        • Classic + Year-End Tournament never count toward standings.
        • Tiebreaker: head-to-head first; unresolved ties share a rank (T).
    - Never add captain emails or phone numbers here.
@@ -21,7 +21,7 @@ const LEAGUE = {
     place: "Hamilton, Ontario",
     year: 2026,
   },
-  updated: "August 26, 2026",
+  updated: "September 8, 2026",
 
   teams: [
     { id: 1, name: "Coyotes",            captain: "Ritta Nazi" },
@@ -112,24 +112,24 @@ const LEAGUE = {
       { winner: "Our Gang Homers",  loser: "Stealers",           diamond: "Turner 2", tiebreak: "Head-to-head rematch — affects the 3 / 4 tiebreak" },
       { winner: "Protectors",       loser: "Coyotes",            diamond: "Turner 3" },
     ]},
-    { date: "August 31", round: "RR2", status: "upcoming", note: "Final week of the regular season", games: [
-      { away: "Odds & Ends",     home: "Protectors",         diamond: "Kay Drage 1" },
-      { away: "Bussin Balls",    home: "Coyotes",            diamond: "Kay Drage 2" },
-      { away: "Our Gang Homers", home: "Culture and Recked", diamond: "Turner 2" },
-      { away: "Stealers",        home: "Wildcats",           diamond: "Turner 3" },
-    ]},
+    { date: "August 31", type: "rainout", label: "Rained out — final week cancelled outright, all 4 games excluded from standings. The regular season is final as of August 24.",
+      cancelled: ["Odds & Ends v Protectors", "Bussin Balls v Coyotes", "Our Gang Homers v Culture and Recked", "Stealers v Wildcats"] },
   ],
 
   /* Editorial tiebreaker notes shown beneath each standings view */
   tiebreakNotes: {
     combined: [
-      "Stealers and Our Gang Homers are level at 7–5; they split the season series 1–1, so the 3 / 4 seed comes down to the final week (and the next tiebreak if still tied).",
+      "Final regular-season standings — the August 31 games were rained out and cancelled outright, so the season closed at 12 games per team.",
+      "Stealers and Our Gang Homers finished level at 7–5 and split the season series 1–1, so the 3 / 4 seed is an unbroken tie. It decides which tournament pool each lands in; the tiebreak method will be confirmed with both captains before seeds lock.",
+      "Coyotes and Protectors finished level at 3–9 and also split 1–1. Both are in Pool B either way — the 6 / 7 seed only sets the order of their Saturday games.",
     ],
     rr1: [
       "Stealers rank above Wildcats (both 4–2) on head-to-head — Stealers won June 29.",
       "Coyotes / Our Gang Homers and Culture and Recked / Protectors are unbroken ties — each pair never met in RR1 and finished level against every shared opponent.",
     ],
-    rr2: [],
+    rr2: [
+      "Culture and Recked rank above Stealers (both 3–3) on head-to-head — Culture and Recked won August 10.",
+    ],
   },
 
   classic: {
@@ -164,7 +164,7 @@ const LEAGUE = {
     title: "Year-End Tournament",
     dates: "September 12–13, 2026",
     location: "Turner Park · Diamonds 5, 6, 7 & 8",
-    intro: "Two pools of four, three pool games Saturday, then a full playoff bracket Sunday. Seeds below are drawn from the current combined standings and update every week — they lock in once the regular season ends August 31.",
+    intro: "Two pools of four, three pool games Saturday, then a full playoff bracket Sunday. Seeds below are drawn from the final combined standings. Two seeds are still tied — 3 / 4 (Stealers, Our Gang Homers) and 6 / 7 (Coyotes, Protectors) — and are shown in a provisional order until the tiebreaks are settled.",
     pools: [
       { name: "Pool A", seeds: [1, 4, 5, 8] },
       { name: "Pool B", seeds: [2, 3, 6, 7] },
@@ -219,7 +219,7 @@ const LEAGUE = {
       },
     ],
     minGames: "Every team plays at least five games — three pool games plus the quarter-final and a semi-final or final.",
-    seedNote: "Seeds are provisional, based on the current combined standings. Final seeding is locked after the regular season ends August 31.",
+    seedNote: "The regular season ended with the August 31 rainout. Seeds 3 / 4 and 6 / 7 are provisional until their ties are broken; all other seeds are final.",
   },
 
   info: {
@@ -233,7 +233,7 @@ const LEAGUE = {
     rules: [
       "Wins and losses only. Scores and runs are never tracked.",
       "Playoff and tournament games don't count toward regular-season standings.",
-      "The May 25 rainout was cancelled outright — those games are excluded, not rescheduled.",
+      "The May 25 and August 31 rainouts were cancelled outright — those games are excluded, not rescheduled.",
       "Forfeits count as an ordinary win or loss.",
     ],
   },
@@ -248,6 +248,12 @@ const LEAGUE = {
     note: "Every update to standings, schedule, or tournament format is logged here, newest first — so the season stays transparent and anyone can see exactly what changed and when.",
     historyUrl: "https://github.com/nismar/hamilton-3pitch/commits/main",
     entries: [
+      { date: "September 8, 2026", tag: "Rainout", title: "August 31 rained out — the regular season is final", changes: [
+        "The final week (August 31) was rained out and cancelled outright, the same as May 25: those four games are excluded from standings, not rescheduled. Every team finishes at 12 games.",
+        "Final standings: Odds & Ends 12–0, Wildcats 9–3, Stealers and Our Gang Homers 7–5, Culture and Recked 5–7, Coyotes and Protectors 3–9, Bussin Balls 2–10.",
+        "Two ties are unbroken because each pair split their season series 1–1: Stealers / Our Gang Homers for the 3 / 4 seed, and Coyotes / Protectors for the 6 / 7 seed. The tiebreak method will be confirmed with the captains involved before tournament seeds lock.",
+        "Round Robin 2 is now shown as final, and the 'Next Monday' box points to the Year-End Tournament on September 12–13.",
+      ]},
       { date: "August 26, 2026", tag: "Results", title: "August 24 results are in", changes: [
         "All four August 24 games are final: Odds & Ends beat Wildcats, Our Gang Homers beat Stealers, Bussin Balls beat Culture and Recked (forfeit), and Protectors beat Coyotes.",
         "Odds & Ends stay perfect at 12–0 and clinch the top seed. Our Gang Homers and Stealers are now level at 7–5, with Homers holding the RR2 head-to-head, heading into the final week.",
