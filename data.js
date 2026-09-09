@@ -120,8 +120,8 @@ const LEAGUE = {
   tiebreakNotes: {
     combined: [
       "Final regular-season standings — the August 31 games were rained out and cancelled outright, so the season closed at 12 games per team.",
-      "Stealers and Our Gang Homers finished level at 7–5 and split the season series 1–1, so the 3 / 4 seed is an unbroken tie. It decides which tournament pool each lands in; the tiebreak method will be confirmed with both captains before seeds lock.",
-      "Coyotes and Protectors finished level at 3–9 and also split 1–1. Both are in Pool B either way — the 6 / 7 seed only sets the order of their Saturday games.",
+      "Stealers and Our Gang Homers finished level at 7–5 and split the season series 1–1. The 3 / 4 tournament seed went to a coin flip between the captains: Stealers take seed 3 (Pool B), Our Gang Homers seed 4 (Pool A).",
+      "Coyotes and Protectors finished level at 3–9 and also split 1–1. Both are in Pool B and play the same three opponents, so no tiebreak was needed — they're listed 6 and 7, which only sets the order of their Saturday games.",
     ],
     rr1: [
       "Stealers rank above Wildcats (both 4–2) on head-to-head — Stealers won June 29.",
@@ -164,7 +164,7 @@ const LEAGUE = {
     title: "Year-End Tournament",
     dates: "September 12–13, 2026",
     location: "Turner Park · Diamonds 5, 6, 7 & 8",
-    intro: "Two pools of four, three pool games Saturday, then a full playoff bracket Sunday. Seeds below are drawn from the final combined standings. Two seeds are still tied — 3 / 4 (Stealers, Our Gang Homers) and 6 / 7 (Coyotes, Protectors) — and are shown in a provisional order until the tiebreaks are settled.",
+    intro: "Two pools of four, three pool games Saturday, then a full playoff bracket Sunday. Seeds are drawn from the final combined standings and are now locked. The 3 / 4 tie (Stealers, Our Gang Homers) was settled by a captains' coin flip; the 6 / 7 tie (Coyotes, Protectors) needed no tiebreak because both teams are in Pool B.",
     pools: [
       { name: "Pool A", seeds: [1, 4, 5, 8] },
       { name: "Pool B", seeds: [2, 3, 6, 7] },
@@ -219,7 +219,7 @@ const LEAGUE = {
       },
     ],
     minGames: "Every team plays at least five games — three pool games plus the quarter-final and a semi-final or final.",
-    seedNote: "The regular season ended with the August 31 rainout. Seeds 3 / 4 and 6 / 7 are provisional until their ties are broken; all other seeds are final.",
+    seedNote: "Seeds are final. Stealers won the coin flip for seed 3; Our Gang Homers are seed 4.",
   },
 
   info: {
@@ -248,6 +248,11 @@ const LEAGUE = {
     note: "Every update to standings, schedule, or tournament format is logged here, newest first — so the season stays transparent and anyone can see exactly what changed and when.",
     historyUrl: "https://github.com/nismar/hamilton-3pitch/commits/main",
     entries: [
+      { date: "September 8, 2026", tag: "Tournament", title: "Tournament seeds are locked — coin flip settles 3 / 4", changes: [
+        "Stealers and Our Gang Homers finished tied at 7–5 with the season series split 1–1, so the captains settled the 3 / 4 seed with a coin flip — the same method used for the Classic seeding in July. Stealers take seed 3 and go to Pool B; Our Gang Homers take seed 4 and go to Pool A.",
+        "Coyotes and Protectors (tied at 3–9, also split 1–1) are both in Pool B and play the same opponents, so no tiebreak was needed. They're listed 6 and 7, which only sets the order of their Saturday games.",
+        "All eight tournament seeds and the Saturday pool schedule are now final.",
+      ]},
       { date: "September 8, 2026", tag: "Rainout", title: "August 31 rained out — the regular season is final", changes: [
         "The final week (August 31) was rained out and cancelled outright, the same as May 25: those four games are excluded from standings, not rescheduled. Every team finishes at 12 games.",
         "Final standings: Odds & Ends 12–0, Wildcats 9–3, Stealers and Our Gang Homers 7–5, Culture and Recked 5–7, Coyotes and Protectors 3–9, Bussin Balls 2–10.",
