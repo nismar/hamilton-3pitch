@@ -260,8 +260,10 @@
         const games = s.games.map((g) => {
           let match, sub = "";
           if (g.a) {
-            match = `${esc(teamOf(g.a))} <i>vs</i> ${esc(teamOf(g.b))}`;
-            sub = `${g.pool ? g.pool + " · " : ""}#${g.a} v #${g.b}`;
+            // Higher regular-season seed (lower number) is HOME — listed second, site-wide "away at home" convention
+            const hi = Math.min(g.a, g.b), lo = Math.max(g.a, g.b);
+            match = `${esc(teamOf(lo))} <i>at</i> ${esc(teamOf(hi))}`;
+            sub = `${g.pool ? g.pool + " · " : ""}#${lo} at #${hi}`;
           } else {
             match = esc(g.label);
             if (g.to) sub = `→ ${esc(g.to)}`;
@@ -279,6 +281,7 @@
       }).join("");
       return `<div class="t-day">
         <div class="t-day-head"><h3>${esc(d.day)}</h3><span class="t-day-sub mono">${esc(d.sub)}</span></div>
+        ${d.note ? `<p class="fine t-day-note">${esc(d.note)}</p>` : ""}
         ${slots}
       </div>`;
     }).join("");
@@ -290,6 +293,11 @@
       <p class="lede">${esc(t.intro)}</p>
       <div class="pools">${pools}</div>
       <div class="t-days">${days}</div>
+      ${t.poolRanking ? `<div class="t-rank">
+        <h4 class="info-h">${esc(t.poolRanking.title)}</h4>
+        <ol class="rules rules--num">${t.poolRanking.steps.map((s) => `<li>${esc(s)}</li>`).join("")}</ol>
+        ${t.poolRanking.note ? `<p class="fine">${esc(t.poolRanking.note)}</p>` : ""}
+      </div>` : ""}
       <div class="t-notes">
         <p class="story"><span class="story-mk" aria-hidden="true"></span>${esc(t.minGames)}</p>
         <p class="fine mono">${esc(t.seedNote)}</p>

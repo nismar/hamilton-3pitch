@@ -358,6 +358,11 @@ main section:first-child { border-top: none; }
 .t-break { font-size: 0.9rem; color: var(--ink-2); }
 .t-break-note { color: var(--muted); }
 
+.t-day-note { margin: -0.35rem 0 1rem; }
+.t-rank { margin-top: 2.25rem; }
+.rules--num { counter-reset: step; list-style: none; padding: 0; margin: 0; }
+ol.rules--num li { padding-left: 1.6rem; }
+ol.rules--num li::before { content: counter(step); counter-increment: step; border: none; transform: none; width: auto; height: auto; top: 0.05em; font-family: var(--f-mono); font-size: 0.7rem; color: var(--muted); }
 .t-notes { margin-top: 2.25rem; display: grid; gap: 0.7rem; }
 
 @media (max-width: 560px) {

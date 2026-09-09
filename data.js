@@ -173,6 +173,7 @@ const LEAGUE = {
       {
         day: "Saturday, September 12",
         sub: "Pool play — three games per team",
+        note: "The higher regular-season seed is the home team in every pool game — listed second, provides the ball and sets up the bases. The lower seed is away and brings the screens.",
         slots: [
           { time: "9:00 AM", round: "Pool Play — Round 1", games: [
             { diamond: "Turner 5", pool: "A", a: 1, b: 8 },
@@ -198,6 +199,7 @@ const LEAGUE = {
       {
         day: "Sunday, September 13",
         sub: "Playoffs — quarter-finals through the finals",
+        note: "A1–A4 and B1–B4 are Saturday pool finishes, ranked by the pool rules below.",
         slots: [
           { time: "9:00 AM", round: "Quarter-Finals", games: [
             { diamond: "Turner 5", label: "A1 vs B4" },
@@ -218,6 +220,15 @@ const LEAGUE = {
         ],
       },
     ],
+    poolRanking: {
+      title: "How pools are ranked for Sunday",
+      steps: [
+        "Pool record — wins and losses over the three Saturday games.",
+        "Run differential, capped at plus or minus 10 per game — a 15-run win counts as +10, so the most a team can reach is +30 (or −30).",
+        "Still level? The higher regular-season seed takes the spot.",
+      ],
+      note: "Runs are counted on Saturday for this tiebreak only — they're never published here.",
+    },
     minGames: "Every team plays at least five games — three pool games plus the quarter-final and a semi-final or final.",
     seedNote: "Seeds are final. Stealers won the coin flip for seed 3; Our Gang Homers are seed 4.",
   },
@@ -231,7 +242,7 @@ const LEAGUE = {
     directions: "Kay Drage diamonds are marked on the backstop. Turner #2 is the one closest to the police station; Turner #3 sits right beside it.",
     reporting: "Captains — email your result to the convenor by Tuesday so standings stay current for Monday.",
     rules: [
-      "Wins and losses only. Scores and runs are never tracked.",
+      "Wins and losses only in the regular season. Runs are never published; the Year-End Tournament counts them on Saturday solely as a capped pool tiebreaker.",
       "Playoff and tournament games don't count toward regular-season standings.",
       "The May 25 and August 31 rainouts were cancelled outright — those games are excluded, not rescheduled.",
       "Forfeits count as an ordinary win or loss.",
@@ -248,6 +259,10 @@ const LEAGUE = {
     note: "Every update to standings, schedule, or tournament format is logged here, newest first — so the season stays transparent and anyone can see exactly what changed and when.",
     historyUrl: "https://github.com/nismar/hamilton-3pitch/commits/main",
     entries: [
+      { date: "September 8, 2026", tag: "Tournament", title: "Home team rule and Sunday seeding rules published", changes: [
+        "Saturday pool games now list the lower seed at the higher seed: the higher regular-season seed is the home team (ball and bases), the lower seed is away (screens).",
+        "Pool finishes for Sunday are ranked by pool record, then run differential capped at plus or minus 10 per game, then regular-season seed if still level. Runs are counted Saturday for that tiebreak only and are never published.",
+      ]},
       { date: "September 8, 2026", tag: "Tournament", title: "Tournament seeds are locked — coin flip settles 3 / 4", changes: [
         "Stealers and Our Gang Homers finished tied at 7–5 with the season series split 1–1, so the captains settled the 3 / 4 seed with a coin flip — the same method used for the Classic seeding in July. Stealers take seed 3 and go to Pool B; Our Gang Homers take seed 4 and go to Pool A.",
         "Coyotes and Protectors (tied at 3–9, also split 1–1) are both in Pool B and play the same opponents, so no tiebreak was needed. They're listed 6 and 7, which only sets the order of their Saturday games.",
