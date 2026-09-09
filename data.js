@@ -173,7 +173,7 @@ const LEAGUE = {
       {
         day: "Saturday, September 12",
         sub: "Pool play — three games per team",
-        note: "The higher regular-season seed is the home team in every pool game — listed second, provides the ball and sets up the bases. The lower seed is away and brings the screens.",
+        note: "Same as last year: the higher regular-season seed picks home or away before each pool game — tell the umpire at the plate meeting. Home sets up the bases and provides the ball; away brings the screens.",
         slots: [
           { time: "9:00 AM", round: "Pool Play — Round 1", games: [
             { diamond: "Turner 5", pool: "A", a: 1, b: 8 },
@@ -199,7 +199,7 @@ const LEAGUE = {
       {
         day: "Sunday, September 13",
         sub: "Playoffs — quarter-finals through the finals",
-        note: "A1–A4 and B1–B4 are Saturday pool finishes, ranked by the pool rules below.",
+        note: "A1–A4 and B1–B4 are Saturday pool finishes, ranked by the pool rules below. The higher seed (better pool finish, then higher regular-season seed) picks home or away.",
         slots: [
           { time: "9:00 AM", round: "Quarter-Finals", games: [
             { diamond: "Turner 5", label: "A1 vs B4" },
@@ -224,6 +224,7 @@ const LEAGUE = {
       title: "How pools are ranked for Sunday",
       steps: [
         "Pool record — wins and losses over the three Saturday games.",
+        "Head-to-head — the result of the tied teams' Saturday game against each other.",
         "Run differential, capped at plus or minus 10 per game — a 15-run win counts as +10, so the most a team can reach is +30 (or −30).",
         "Still level? The higher regular-season seed takes the spot.",
       ],
@@ -259,9 +260,10 @@ const LEAGUE = {
     note: "Every update to standings, schedule, or tournament format is logged here, newest first — so the season stays transparent and anyone can see exactly what changed and when.",
     historyUrl: "https://github.com/nismar/hamilton-3pitch/commits/main",
     entries: [
-      { date: "September 8, 2026", tag: "Tournament", title: "Home team rule and Sunday seeding rules published", changes: [
-        "Saturday pool games now list the lower seed at the higher seed: the higher regular-season seed is the home team (ball and bases), the lower seed is away (screens).",
-        "Pool finishes for Sunday are ranked by pool record, then run differential capped at plus or minus 10 per game, then regular-season seed if still level. Runs are counted Saturday for that tiebreak only and are never published.",
+      { date: "September 8, 2026", tag: "Tournament", title: "Tournament rules published — same as last year", changes: [
+        "The higher seed picks home or away before each tournament game (the 2025 rule), rather than automatically being home. Home sets up the bases and provides the ball; away brings the screens.",
+        "Pool finishes for Sunday are ranked by pool record, then head-to-head, then run differential capped at plus or minus 10 per game, then regular-season seed. Runs are counted Saturday for that tiebreak only and are never published.",
+        "Saturday games are 1.5-hour slots; the umpire calls last inning.",
       ]},
       { date: "September 8, 2026", tag: "Tournament", title: "Tournament seeds are locked — coin flip settles 3 / 4", changes: [
         "Stealers and Our Gang Homers finished tied at 7–5 with the season series split 1–1, so the captains settled the 3 / 4 seed with a coin flip — the same method used for the Classic seeding in July. Stealers take seed 3 and go to Pool B; Our Gang Homers take seed 4 and go to Pool A.",

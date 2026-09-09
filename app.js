@@ -260,10 +260,10 @@
         const games = s.games.map((g) => {
           let match, sub = "";
           if (g.a) {
-            // Higher regular-season seed (lower number) is HOME — listed second, site-wide "away at home" convention
+            // Higher regular-season seed (lower number) listed first; it picks home or away at the plate meeting
             const hi = Math.min(g.a, g.b), lo = Math.max(g.a, g.b);
-            match = `${esc(teamOf(lo))} <i>at</i> ${esc(teamOf(hi))}`;
-            sub = `${g.pool ? g.pool + " · " : ""}#${lo} at #${hi}`;
+            match = `${esc(teamOf(hi))} <i>vs</i> ${esc(teamOf(lo))}`;
+            sub = `${g.pool ? g.pool + " · " : ""}#${hi} v #${lo} · #${hi} picks home/away`;
           } else {
             match = esc(g.label);
             if (g.to) sub = `→ ${esc(g.to)}`;
