@@ -331,6 +331,10 @@ main section:first-child { border-top: none; }
 .seed { width: 1.5rem; height: 1.5rem; flex: none; display: inline-flex; align-items: center; justify-content: center;
   border: 1px solid var(--line-2); border-radius: 50%; font-size: 0.7rem; color: var(--muted); }
 .seed-team { color: var(--ink); font-size: 0.95rem; }
+.pool-rec { margin-left: auto; font-size: 0.78rem; color: var(--ink-2); }
+.pool-fin { font-size: 0.62rem; letter-spacing: 0.09em; padding: 0.15rem 0.45rem; border: 1px solid var(--line-2); border-radius: 999px; color: var(--muted); }
+.t-match b { font-weight: 640; }
+.t-game--final { background: var(--paper-2); }
 
 .t-day { margin-top: 2.5rem; }
 .t-day-head { display: flex; align-items: baseline; gap: 0.9rem; flex-wrap: wrap; padding-bottom: 0.85rem; border-bottom: 1px solid var(--line-2); margin-bottom: 1rem; }

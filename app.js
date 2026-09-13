@@ -239,17 +239,67 @@
   /* ---- Year-End Tournament ------------------------------------------------ */
   function renderTournament() {
     const t = LEAGUE.tournament;
-    // Provisional seeds from the current combined standings (seed 1 = leader)
+    // Seeds from the final combined standings (seed 1 = leader)
     const order = computeStandings(["RR1", "RR2"]);
-    const seedTeam = {};
-    order.forEach((row, i) => { seedTeam[i + 1] = row.name; });
+    const seedTeam = {}, teamSeed = {};
+    order.forEach((row, i) => { seedTeam[i + 1] = row.name; teamSeed[row.name] = i + 1; });
     const teamOf = (s) => seedTeam[s] || ("Seed " + s);
 
+    // Saturday pool records — computed from pool games with a recorded winner (a seed number)
+    const rec = {};
+    t.days.forEach((d) => d.slots.forEach((s) => (s.games || []).forEach((g) => {
+      if (!g.a) return;
+      [g.a, g.b].forEach((x) => { rec[x] = rec[x] || { w: 0, l: 0 }; });
+      if (g.winner) { rec[g.winner].w += 1; rec[g.winner === g.a ? g.b : g.a].l += 1; }
+    })));
+
+    // Pool finish (A1…B4) — the published order in data, entered once pool play is complete
+    const finish = {}; // "A1" -> team name
+    const letterOf = (p) => p.name.replace(/^Pool\s+/i, "").trim();
+    t.pools.forEach((p) => {
+      const ord = t.poolFinish && t.poolFinish[letterOf(p)];
+      if (ord) ord.forEach((s, i) => { finish[letterOf(p) + (i + 1)] = teamOf(s); });
+    });
+    const finishCode = {}; // team name -> "A1"
+    Object.keys(finish).forEach((c) => { finishCode[finish[c]] = c; });
+
     const pools = t.pools.map((p) => {
-      const items = p.seeds.map((s) =>
-        `<li><span class="seed mono">${s}</span><span class="seed-team">${esc(teamOf(s))}</span></li>`).join("");
+      const L = letterOf(p);
+      const ord = (t.poolFinish && t.poolFinish[L]) || p.seeds;
+      const items = ord.map((s) => {
+        const r = rec[s], name = teamOf(s), code = finishCode[name];
+        const record = r && (r.w + r.l) ? `<span class="pool-rec mono">${r.w}–${r.l}</span>` : "";
+        const fin = code ? `<span class="pool-fin mono">${esc(code)}</span>` : "";
+        return `<li><span class="seed mono">${s}</span><span class="seed-team">${esc(name)}</span>${record}${fin}</li>`;
+      }).join("");
       return `<div class="pool"><h4 class="pool-h mono">${esc(p.name)}</h4><ul class="pool-list">${items}</ul></div>`;
     }).join("");
+
+    // Sunday bracket — games resolve by key: "A1 vs B4" labels map to pool finishes,
+    // later rounds pull the winner (or loser) of the games they're fed from.
+    const byKey = {};
+    t.days.forEach((d) => d.slots.forEach((s) => (s.games || []).forEach((g) => { if (g.key) byKey[g.key] = g; })));
+    const rankOf = (name) => { const c = finishCode[name]; return c ? Number(c.slice(1)) : 99; };
+    function teamsOf(g) {
+      if (g.winner && g.loser) return [g.winner, g.loser];
+      const m = /^([AB][1-4]) vs ([AB][1-4])$/.exec(g.label || "");
+      if (m) {
+        const x = finish[m[1]], y = finish[m[2]];
+        if (!x || !y) return null;
+        // Better pool finish first (then regular-season seed) — that team picks home or away
+        const first = rankOf(x) !== rankOf(y) ? (rankOf(x) < rankOf(y) ? x : y) : (teamSeed[x] < teamSeed[y] ? x : y);
+        return first === x ? [x, y] : [y, x];
+      }
+      if (g.from) {
+        const names = g.from.map((k) => {
+          const src = byKey[k];
+          if (!src || !src.winner) return null;
+          return g.side === "L" ? src.loser : src.winner;
+        });
+        return names.every(Boolean) ? names : null;
+      }
+      return null;
+    }
 
     const days = t.days.map((d) => {
       const slots = d.slots.map((s) => {
@@ -258,17 +308,34 @@
             <span class="t-break">${esc(s.round)}${s.note ? ` <span class="t-break-note">· ${esc(s.note)}</span>` : ""}</span></div>`;
         }
         const games = s.games.map((g) => {
-          let match, sub = "";
+          let match, sub = "", cls = "";
           if (g.a) {
-            // Higher regular-season seed (lower number) listed first; it picks home or away at the plate meeting
+            // Pool game: higher regular-season seed (lower number) listed first; it picks home or away
             const hi = Math.min(g.a, g.b), lo = Math.max(g.a, g.b);
-            match = `${esc(teamOf(hi))} <i>vs</i> ${esc(teamOf(lo))}`;
-            sub = `${g.pool ? g.pool + " · " : ""}#${hi} v #${lo} · #${hi} picks home/away`;
+            if (g.winner) {
+              const w = teamOf(g.winner), l = teamOf(g.winner === g.a ? g.b : g.a);
+              match = `<b>${esc(w)}</b> <i>def.</i> ${esc(l)}`;
+              sub = `${g.pool ? g.pool + " · " : ""}#${hi} v #${lo}`;
+              cls = " t-game--final";
+            } else {
+              match = `${esc(teamOf(hi))} <i>vs</i> ${esc(teamOf(lo))}`;
+              sub = `${g.pool ? g.pool + " · " : ""}#${hi} v #${lo} · #${hi} picks home/away`;
+            }
           } else {
-            match = esc(g.label);
-            if (g.to) sub = `→ ${esc(g.to)}`;
+            const pair = teamsOf(g);
+            if (g.winner && g.loser) {
+              match = `<b>${esc(g.winner)}</b> <i>def.</i> ${esc(g.loser)}`;
+              sub = esc(g.label);
+              cls = " t-game--final";
+            } else if (pair) {
+              match = `${esc(pair[0])} <i>vs</i> ${esc(pair[1])}`;
+              sub = `${esc(g.label)} · ${esc(pair[0])} picks home/away`;
+            } else {
+              match = esc(g.label);
+              if (g.to) sub = `→ ${esc(g.to)}`;
+            }
           }
-          return `<div class="t-game${g.crown ? " t-game--crown" : ""}">
+          return `<div class="t-game${cls}${g.crown ? " t-game--crown" : ""}">
             <span class="t-dia mono">${esc(g.diamond)}</span>
             <span class="t-match">${match}</span>
             ${sub ? `<span class="t-sub mono">${sub}</span>` : ""}

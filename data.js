@@ -21,7 +21,7 @@ const LEAGUE = {
     place: "Hamilton, Ontario",
     year: 2026,
   },
-  updated: "September 8, 2026",
+  updated: "September 13, 2026",
 
   teams: [
     { id: 1, name: "Coyotes",            captain: "Ritta Nazi" },
@@ -164,11 +164,15 @@ const LEAGUE = {
     title: "Year-End Tournament",
     dates: "September 12–13, 2026",
     location: "Turner Park · Diamonds 5, 6, 7 & 8",
-    intro: "Two pools of four, three pool games Saturday, then a full playoff bracket Sunday. Seeds are drawn from the final combined standings and are now locked. The 3 / 4 tie (Stealers, Our Gang Homers) was settled by a captains' coin flip; the 6 / 7 tie (Coyotes, Protectors) needed no tiebreak because both teams are in Pool B.",
+    intro: "Two pools of four, three pool games Saturday, then a full playoff bracket Sunday. Saturday pool play is complete — Odds & Ends and Wildcats each went 3–0 to top their pools — and the Sunday quarter-finals are set below. Seeds were drawn from the final combined standings; the 3 / 4 tie (Stealers, Our Gang Homers) was settled by a captains' coin flip.",
     pools: [
       { name: "Pool A", seeds: [1, 4, 5, 8] },
       { name: "Pool B", seeds: [2, 3, 6, 7] },
     ],
+    /* Saturday finish order (A1..A4, B1..B4) by regular-season seed — published once pool
+       play is complete. Ranked by pool record → head-to-head → capped run diff → seed;
+       runs stay off the site, only the resulting order is entered here. */
+    poolFinish: { A: [1, 4, 5, 8], B: [2, 3, 7, 6] },
     days: [
       {
         day: "Saturday, September 12",
@@ -176,23 +180,23 @@ const LEAGUE = {
         note: "Same as last year: the higher regular-season seed picks home or away before each pool game — tell the umpire at the plate meeting. Home sets up the bases and provides the ball; away brings the screens.",
         slots: [
           { time: "9:00 AM", round: "Pool Play — Round 1", games: [
-            { diamond: "Turner 5", pool: "A", a: 1, b: 8 },
-            { diamond: "Turner 6", pool: "A", a: 4, b: 5 },
-            { diamond: "Turner 7", pool: "B", a: 2, b: 7 },
-            { diamond: "Turner 8", pool: "B", a: 3, b: 6 },
+            { diamond: "Turner 5", pool: "A", a: 1, b: 8, winner: 1 },
+            { diamond: "Turner 6", pool: "A", a: 4, b: 5, winner: 4 },
+            { diamond: "Turner 7", pool: "B", a: 2, b: 7, winner: 2 },
+            { diamond: "Turner 8", pool: "B", a: 3, b: 6, winner: 3 },
           ]},
           { time: "11:00 AM", round: "Pool Play — Round 2", games: [
-            { diamond: "Turner 5", pool: "A", a: 1, b: 5 },
-            { diamond: "Turner 6", pool: "A", a: 4, b: 8 },
-            { diamond: "Turner 7", pool: "B", a: 2, b: 6 },
-            { diamond: "Turner 8", pool: "B", a: 3, b: 7 },
+            { diamond: "Turner 5", pool: "A", a: 1, b: 5, winner: 1 },
+            { diamond: "Turner 6", pool: "A", a: 4, b: 8, winner: 4 },
+            { diamond: "Turner 7", pool: "B", a: 2, b: 6, winner: 2 },
+            { diamond: "Turner 8", pool: "B", a: 3, b: 7, winner: 3 },
           ]},
           { time: "12:30 PM", round: "Lunch & Beer Garden", break: true, note: "Food and beer garden — all teams" },
           { time: "1:30 PM", round: "Pool Play — Round 3", games: [
-            { diamond: "Turner 5", pool: "A", a: 1, b: 4 },
-            { diamond: "Turner 6", pool: "A", a: 5, b: 8 },
-            { diamond: "Turner 7", pool: "B", a: 2, b: 3 },
-            { diamond: "Turner 8", pool: "B", a: 6, b: 7 },
+            { diamond: "Turner 5", pool: "A", a: 1, b: 4, winner: 1 },
+            { diamond: "Turner 6", pool: "A", a: 5, b: 8, winner: 5 },
+            { diamond: "Turner 7", pool: "B", a: 2, b: 3, winner: 2 },
+            { diamond: "Turner 8", pool: "B", a: 6, b: 7, winner: 7 },
           ]},
         ],
       },
@@ -202,20 +206,20 @@ const LEAGUE = {
         note: "A1–A4 and B1–B4 are Saturday pool finishes, ranked by the pool rules below. The higher seed (better pool finish, then higher regular-season seed) picks home or away.",
         slots: [
           { time: "9:00 AM", round: "Quarter-Finals", games: [
-            { diamond: "Turner 5", label: "A1 vs B4" },
-            { diamond: "Turner 6", label: "A2 vs B3" },
-            { diamond: "Turner 7", label: "A3 vs B2" },
-            { diamond: "Turner 8", label: "A4 vs B1" },
+            { diamond: "Turner 5", key: "QF1", label: "A1 vs B4" },
+            { diamond: "Turner 6", key: "QF2", label: "A2 vs B3" },
+            { diamond: "Turner 7", key: "QF3", label: "A3 vs B2" },
+            { diamond: "Turner 8", key: "QF4", label: "A4 vs B1" },
           ]},
           { time: "11:00 AM", round: "Semi-Finals", games: [
-            { diamond: "Turner 5", label: "W(A1·B4) vs W(A3·B2)", to: "Championship" },
-            { diamond: "Turner 6", label: "W(A2·B3) vs W(A4·B1)", to: "Championship" },
-            { diamond: "Turner 7", label: "L(A1·B4) vs L(A3·B2)", to: "Consolation" },
-            { diamond: "Turner 8", label: "L(A2·B3) vs L(A4·B1)", to: "Consolation" },
+            { diamond: "Turner 5", key: "SF1", from: ["QF1", "QF3"], side: "W", label: "W(A1·B4) vs W(A3·B2)", to: "Championship" },
+            { diamond: "Turner 6", key: "SF2", from: ["QF2", "QF4"], side: "W", label: "W(A2·B3) vs W(A4·B1)", to: "Championship" },
+            { diamond: "Turner 7", key: "SF3", from: ["QF1", "QF3"], side: "L", label: "L(A1·B4) vs L(A3·B2)", to: "Consolation" },
+            { diamond: "Turner 8", key: "SF4", from: ["QF2", "QF4"], side: "L", label: "L(A2·B3) vs L(A4·B1)", to: "Consolation" },
           ]},
           { time: "1:00 PM", round: "Finals", games: [
-            { diamond: "Turner 5 / 6", label: "Championship", crown: true },
-            { diamond: "Turner 7 / 8", label: "Consolation Final" },
+            { diamond: "Turner 5 / 6", key: "F1", from: ["SF1", "SF2"], side: "W", label: "Championship", crown: true },
+            { diamond: "Turner 7 / 8", key: "F2", from: ["SF3", "SF4"], side: "W", label: "Consolation Final" },
           ]},
         ],
       },
@@ -260,6 +264,13 @@ const LEAGUE = {
     note: "Every update to standings, schedule, or tournament format is logged here, newest first — so the season stays transparent and anyone can see exactly what changed and when.",
     historyUrl: "https://github.com/nismar/hamilton-3pitch/commits/main",
     entries: [
+      { date: "September 13, 2026", tag: "Tournament", title: "Saturday pool play is final — Sunday quarter-finals set", changes: [
+        "Pool A: Odds & Ends went 3–0, Our Gang Homers 2–1, Culture and Recked 1–2, Bussin Balls 0–3.",
+        "Pool B: Wildcats went 3–0, Stealers 2–1, Protectors 1–2, Coyotes 0–3.",
+        "No pool needed a tiebreak — every finish was settled on record alone.",
+        "Sunday quarter-finals: Odds & Ends vs Coyotes (Turner 5), Our Gang Homers vs Protectors (Turner 6), Stealers vs Culture and Recked (Turner 7), Wildcats vs Bussin Balls (Turner 8). The better pool finish picks home or away.",
+        "Every Saturday game now shows its winner in the tournament schedule, and the pool cards show each team's record and finish.",
+      ]},
       { date: "September 8, 2026", tag: "Tournament", title: "Tournament rules published — same as last year", changes: [
         "The higher seed picks home or away before each tournament game (the 2025 rule), rather than automatically being home. Home sets up the bases and provides the ball; away brings the screens.",
         "Pool finishes for Sunday are ranked by pool record, then head-to-head, then run differential capped at plus or minus 10 per game, then regular-season seed. Runs are counted Saturday for that tiebreak only and are never published.",
