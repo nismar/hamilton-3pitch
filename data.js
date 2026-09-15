@@ -21,7 +21,7 @@ const LEAGUE = {
     place: "Hamilton, Ontario",
     year: 2026,
   },
-  updated: "September 13, 2026",
+  updated: "September 15, 2026",
 
   teams: [
     { id: 1, name: "Coyotes",            captain: "Ritta Nazi" },
@@ -164,7 +164,7 @@ const LEAGUE = {
     title: "Year-End Tournament",
     dates: "September 12–13, 2026",
     location: "Turner Park · Diamonds 5, 6, 7 & 8",
-    intro: "Two pools of four, three pool games Saturday, then a full playoff bracket Sunday. Saturday pool play is complete — Odds & Ends and Wildcats each went 3–0 to top their pools — and the Sunday quarter-finals are set below. Seeds were drawn from the final combined standings; the 3 / 4 tie (Stealers, Our Gang Homers) was settled by a captains' coin flip.",
+    intro: "Odds & Ends are the 2026 Year-End Tournament champions, beating Wildcats in the final — a rematch of the two pool winners and the top two regular-season seeds. Coyotes took the consolation final over Protectors. Two pools of four Saturday, then a full playoff bracket Sunday; seeds were drawn from the final combined standings.",
     pools: [
       { name: "Pool A", seeds: [1, 4, 5, 8] },
       { name: "Pool B", seeds: [2, 3, 6, 7] },
@@ -173,6 +173,8 @@ const LEAGUE = {
        play is complete. Ranked by pool record → head-to-head → capped run diff → seed;
        runs stay off the site, only the resulting order is entered here. */
     poolFinish: { A: [1, 4, 5, 8], B: [2, 3, 7, 6] },
+    champion: "Odds & Ends",
+    consolation: "Coyotes",
     days: [
       {
         day: "Saturday, September 12",
@@ -206,20 +208,20 @@ const LEAGUE = {
         note: "A1–A4 and B1–B4 are Saturday pool finishes, ranked by the pool rules below. The higher seed (better pool finish, then higher regular-season seed) picks home or away.",
         slots: [
           { time: "9:00 AM", round: "Quarter-Finals", games: [
-            { diamond: "Turner 5", key: "QF1", label: "A1 vs B4" },
-            { diamond: "Turner 6", key: "QF2", label: "A2 vs B3" },
-            { diamond: "Turner 7", key: "QF3", label: "A3 vs B2" },
-            { diamond: "Turner 8", key: "QF4", label: "A4 vs B1" },
+            { diamond: "Turner 5", key: "QF1", label: "A1 vs B4", winner: "Odds & Ends", loser: "Coyotes" },
+            { diamond: "Turner 6", key: "QF2", label: "A2 vs B3", winner: "Our Gang Homers", loser: "Protectors" },
+            { diamond: "Turner 7", key: "QF3", label: "A3 vs B2", winner: "Stealers", loser: "Culture and Recked" },
+            { diamond: "Turner 8", key: "QF4", label: "A4 vs B1", winner: "Wildcats", loser: "Bussin Balls" },
           ]},
           { time: "11:00 AM", round: "Semi-Finals", games: [
-            { diamond: "Turner 5", key: "SF1", from: ["QF1", "QF3"], side: "W", label: "W(A1·B4) vs W(A3·B2)", to: "Championship" },
-            { diamond: "Turner 6", key: "SF2", from: ["QF2", "QF4"], side: "W", label: "W(A2·B3) vs W(A4·B1)", to: "Championship" },
-            { diamond: "Turner 7", key: "SF3", from: ["QF1", "QF3"], side: "L", label: "L(A1·B4) vs L(A3·B2)", to: "Consolation" },
-            { diamond: "Turner 8", key: "SF4", from: ["QF2", "QF4"], side: "L", label: "L(A2·B3) vs L(A4·B1)", to: "Consolation" },
+            { diamond: "Turner 5", key: "SF1", from: ["QF1", "QF3"], side: "W", label: "W(A1·B4) vs W(A3·B2)", to: "Championship", winner: "Odds & Ends", loser: "Stealers" },
+            { diamond: "Turner 6", key: "SF2", from: ["QF2", "QF4"], side: "W", label: "W(A2·B3) vs W(A4·B1)", to: "Championship", winner: "Wildcats", loser: "Our Gang Homers" },
+            { diamond: "Turner 7", key: "SF3", from: ["QF1", "QF3"], side: "L", label: "L(A1·B4) vs L(A3·B2)", to: "Consolation", winner: "Coyotes", loser: "Culture and Recked" },
+            { diamond: "Turner 8", key: "SF4", from: ["QF2", "QF4"], side: "L", label: "L(A2·B3) vs L(A4·B1)", to: "Consolation", winner: "Protectors", loser: "Bussin Balls" },
           ]},
           { time: "1:00 PM", round: "Finals", games: [
-            { diamond: "Turner 5 / 6", key: "F1", from: ["SF1", "SF2"], side: "W", label: "Championship", crown: true },
-            { diamond: "Turner 7 / 8", key: "F2", from: ["SF3", "SF4"], side: "W", label: "Consolation Final" },
+            { diamond: "Turner 5 / 6", key: "F1", from: ["SF1", "SF2"], side: "W", label: "Championship", crown: true, winner: "Odds & Ends", loser: "Wildcats" },
+            { diamond: "Turner 7 / 8", key: "F2", from: ["SF3", "SF4"], side: "W", label: "Consolation Final", winner: "Coyotes", loser: "Protectors" },
           ]},
         ],
       },
@@ -264,6 +266,12 @@ const LEAGUE = {
     note: "Every update to standings, schedule, or tournament format is logged here, newest first — so the season stays transparent and anyone can see exactly what changed and when.",
     historyUrl: "https://github.com/nismar/hamilton-3pitch/commits/main",
     entries: [
+      { date: "September 15, 2026", tag: "Tournament", title: "Odds & Ends are the 2026 champions — season wrapped", changes: [
+        "Championship: Odds & Ends defeated Wildcats. Consolation final: Coyotes defeated Protectors.",
+        "Quarter-finals: Odds & Ends def. Coyotes, Our Gang Homers def. Protectors, Stealers def. Culture and Recked, Wildcats def. Bussin Balls.",
+        "Semi-finals: Odds & Ends def. Stealers and Wildcats def. Our Gang Homers on the championship side; Coyotes def. Culture and Recked and Protectors def. Bussin Balls on the consolation side.",
+        "The full Sunday bracket is filled in on the tournament schedule. That's the 2026 season — thanks to every captain and player.",
+      ]},
       { date: "September 13, 2026", tag: "Tournament", title: "Saturday pool play is final — Sunday quarter-finals set", changes: [
         "Pool A: Odds & Ends went 3–0, Our Gang Homers 2–1, Culture and Recked 1–2, Bussin Balls 0–3.",
         "Pool B: Wildcats went 3–0, Stealers 2–1, Protectors 1–2, Coyotes 0–3.",

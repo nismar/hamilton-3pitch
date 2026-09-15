@@ -124,6 +124,17 @@
     if (!wk) {
       // Regular season over — point the strip at the Year-End Tournament instead of leaving an empty box
       const t = LEAGUE.tournament;
+      if (t.champion) {
+        // Tournament played — the strip becomes the season sign-off
+        $("#next-strip").innerHTML = `
+          <div class="next-head">
+            <span class="eyebrow mono">Season wrapped</span>
+            <span class="next-date">${esc(t.champion)} — ${LEAGUE.season.year} champions</span>
+            <span class="next-round mono">${esc(t.title)}</span>
+          </div>
+          <p class="next-foot mono">${esc(t.dates)} · ${esc(t.location)} · <a href="#tournament">Full bracket &rarr;</a></p>`;
+        return;
+      }
       $("#next-strip").innerHTML = `
         <div class="next-head">
           <span class="eyebrow mono">Next up</span>
